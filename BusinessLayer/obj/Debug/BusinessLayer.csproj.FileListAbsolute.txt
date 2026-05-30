@@ -1,0 +1,9 @@
+D:\BusinessLayer\bin\Debug\BusinessLayer.dll
+D:\BusinessLayer\bin\Debug\BusinessLayer.pdb
+D:\BusinessLayer\bin\Debug\DataAccessLayer.dll
+D:\BusinessLayer\bin\Debug\DataAccessLayer.pdb
+D:\BusinessLayer\obj\Debug\BusinessLayer.csproj.AssemblyReference.cache
+D:\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
+D:\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete
+D:\BusinessLayer\obj\Debug\BusinessLayer.dll
+D:\BusinessLayer\obj\Debug\BusinessLayer.pdb
