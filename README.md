@@ -1,3 +1,7 @@
+# csharp-car-rental-management-system
+C# WinForms Car Rental Management System using ADO.NET, SQL Server, and 3-tier architecture for managing customers, vehicles, rentals, returns, maintenance, and transactions.
+
+
 # 🚗 Premium Car Rental Management System
 
 [![C#](https://img.shields.io/badge/Language-C%23-blue.svg?style=for-the-badge&logo=c-sharp)](https://docs.microsoft.com/en-us/dotnet/csharp/)
@@ -176,9 +180,3 @@ To explore the dashboard, log in with these pre-seeded administrator credentials
 
 ---
 
-## 🤝 Contributing
-1. Fork the Repository.
-2. Create your Feature Branch (`git checkout -b feature/NewFeature`).
-3. Commit your Changes (`git commit -m 'Add some NewFeature'`).
-4. Push to the Branch (`git push origin feature/NewFeature`).
-5. Open a Pull Request.
