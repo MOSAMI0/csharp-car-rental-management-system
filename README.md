@@ -125,8 +125,9 @@ The relational database consists of 13 interconnected tables and optimized views
 *   `VehicleMaintenance` & `VehicleMaintenanceHistory` (Maintenance pipelines)
 *   `vw_ActiveBookings` (Optimized SQL View for active contracts)
 
-The entire setup script including predefined seed data is located in:
-🔗 **[schema.sql](file:///d:/CarRentalSolution/schema.sql)**
+The entire setup script with predefined seed data is located in:
+🔗 **[Database/schema.sql](Database/schema.sql)**
+🔗 **[Database/seed-data.sql](Database/seed-data.sql)**
 
 ---
 
@@ -145,12 +146,13 @@ Follow these steps to deploy and run the application locally.
 
 #### Step 1: Database Deployment
 1.  Open **SQL Server Management Studio (SSMS)** and connect to your SQL Server instance.
-2.  Open the [schema.sql](file:///d:/CarRentalSolution/schema.sql) file.
+2.  Open the [Database/schema.sql](Database/schema.sql) file.
 3.  Execute the script (`F5` or click **Execute**) to automatically build the database structure, set up foreign keys, compile views, and seed default lookup values, customers, and vehicles.
+4.  Then execute: the [Database/seed-data.sql](Database/seed-data.sql) to populate sample data.
 
 #### Step 2: Connection String Configuration
 1.  In Visual Studio, open the solution file `CarRental.sln`.
-2.  Navigate to the `DataAccessLayer` project and open [clsDataAccessSettings.cs](file:///d:/CarRentalSolution/DataAccessLayer/clsDataAccessSettings.cs).
+2.  Navigate to the `DataAccessLayer` project and open [clsDataAccessSettings.cs](DataAccessLayer/clsDataAccessSettings.cs).
 3.  Replace the `ConnectionString` string with your SQL Server target credentials:
     ```csharp
     public static string ConnectionString = "Server=YOUR_SERVER_NAME;Database=Car_Rental;User Id=YOUR_USER;Password=YOUR_PASSWORD;";
@@ -179,4 +181,7 @@ To explore the dashboard, log in with these pre-seeded administrator credentials
 *   **Separation of Concerns:** Business logic rules are checked only inside the Business Layer, ensuring data consistency before reaching the storage layers.
 
 ---
+## 📌 Notes
+Large datasets were excluded from the repository to keep the project lightweight and GitHub-friendly.
+The project is intended for educational, portfolio, and learning purposes.
 
