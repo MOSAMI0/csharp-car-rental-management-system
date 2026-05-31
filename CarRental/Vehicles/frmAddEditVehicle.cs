@@ -56,7 +56,6 @@ namespace CarRental.Vehicles
 
         private void LoadVehicleData()
         {
-            // Load Makes
             DataTable dtMakes = clsVehicle.ListMakes();
             cboMake.DataSource = dtMakes;
             cboMake.DisplayMember = "MakeName";
@@ -70,7 +69,6 @@ namespace CarRental.Vehicles
                 return;
             }
 
-            // Edit mode
             _Vehicle = clsVehicle.Find(_VehicleID);
 
             if (_Vehicle == null)
@@ -85,7 +83,6 @@ namespace CarRental.Vehicles
             txtMileage.Text = _Vehicle.Mileage.ToString();
             txtDailyPrice.Text = _Vehicle.Price.ToString("F2");
 
-            // Load image
             if (!string.IsNullOrEmpty(_Vehicle.ImagePath))
             {
                 try
@@ -96,10 +93,8 @@ namespace CarRental.Vehicles
                 catch { }
             }
 
-            // Load Make
             cboMake.SelectedValue = _Vehicle.MakeID;
 
-            // Load Models
             DataTable dtModels = clsVehicle.GetModelsByMake(_Vehicle.MakeID);
             cboModel.DataSource = dtModels;
             cboModel.DisplayMember = "ModelName";
@@ -110,19 +105,16 @@ namespace CarRental.Vehicles
             int categoryID = _Vehicle.CategoryID;
             int fuelID = _Vehicle.FuelID;
 
-            // Category
             cboCategory.DataSource = clsVehicle.GetCategoriesByModel(modelID);
             cboCategory.DisplayMember = "CategoryName";
             cboCategory.ValueMember = "CategoryID";
             cboCategory.SelectedValue = categoryID;
 
-            // Fuel
             cboFuelType.DataSource = clsVehicle.GetFuelTypesByModelAndCategory(modelID, categoryID);
             cboFuelType.DisplayMember = "FuelTypeName";
             cboFuelType.ValueMember = "FuelTypeID";
             cboFuelType.SelectedValue = fuelID;
 
-            // Year
             cboYear.DataSource = clsVehicle.GetYearsByModelCategoryAndFuel(modelID, categoryID, fuelID);
             cboYear.DisplayMember = "Year";
             cboYear.ValueMember = "Year";
@@ -193,26 +185,11 @@ namespace CarRental.Vehicles
             cboFuelType.SelectedIndex = -1;
         }
 
-        //private void cboYear_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    if (_isLoading) return;
 
-        //    cboFuelType.DataSource = null;
 
-        //    if (cboYear.SelectedValue == null || cboModel.SelectedValue == null)
-        //        return;
 
-        //    int modelID, year;
 
-        //    if (!int.TryParse(cboModel.SelectedValue.ToString(), out modelID)) return;
-        //    if (!int.TryParse(cboYear.SelectedValue.ToString(), out year)) return;
 
-        //    DataTable dtFuels = clsVehicle.GetFuelTypes(modelID, year);
-        //    cboFuelType.DataSource = dtFuels;
-        //    cboFuelType.DisplayMember = "FuelTypeName";
-        //    cboFuelType.ValueMember = "FuelTypeID";
-        //    cboFuelType.SelectedIndex = -1;
-        //}
 
         private void btnSaveVehicle_Click(object sender, EventArgs e)
         {

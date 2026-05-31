@@ -59,7 +59,7 @@ namespace BusinessLayer
 
         private bool _AddNewCustomer()
         {
-            CustomerID = clsCustomerDataAccess.AddNewCustomer(Name, ContactInformation, DriverLicenseNumber, ImagePath );//ImagePath
+            CustomerID = clsCustomerDataAccess.AddNewCustomer(Name, ContactInformation, DriverLicenseNumber, ImagePath );
             return CustomerID != -1;
         }
         private bool _UpdateCustomer()

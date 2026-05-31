@@ -22,10 +22,8 @@ namespace CarRental.Booking
                 _dtBookings = clsBooking.ListActiveBookings();
                 dgvBookingsList.DataSource = _dtBookings;
 
-                // Configure columns just renaming
                 ConfigureDataGridViewColumns();
 
-                // Update status bar
                 UpdateStatusBar();
             }
             catch (Exception ex)
@@ -43,7 +41,6 @@ namespace CarRental.Booking
         {
             if (dgvBookingsList.Columns.Count == 0) return;
 
-            // Set friendly column headers
             if (dgvBookingsList.Columns.Contains("BookingID"))
                 dgvBookingsList.Columns["BookingID"].HeaderText = "ID";
 
@@ -91,7 +88,6 @@ namespace CarRental.Booking
             if (dgvBookingsList.Columns.Contains("Notes"))
                 dgvBookingsList.Columns["Notes"].HeaderText = "Notes";
 
-            // Set column widths
             if (dgvBookingsList.Columns.Contains("BookingID"))
                 dgvBookingsList.Columns["BookingID"].Width = 60;
 
@@ -134,7 +130,6 @@ namespace CarRental.Booking
 
         private void DeleteSelectedBooking()
         {
-            // Check if a row is selected
             if (dgvBookingsList.CurrentRow == null)
             {
                 MessageBox.Show("Please select a booking to delete.", "No Selection",
@@ -150,7 +145,6 @@ namespace CarRental.Booking
                 return;
             }
 
-            // Confirm deletion
             DialogResult result = MessageBox.Show(
                 $"Are you sure you want to delete Booking #{bookingID}?\n\nThis action cannot be undone.",
                 "Confirm Deletion",
@@ -181,7 +175,6 @@ namespace CarRental.Booking
             }
         }
 
-        // Event Handlers
         private void frmListBooking_Load(object sender, EventArgs e)
         {
             RefreshBookingsList();
@@ -204,7 +197,6 @@ namespace CarRental.Booking
             this.Close();
         }
 
-        //next version with Taha
         private void tsmiViewDetails_Click(object sender, EventArgs e)
         {
             MessageBox.Show("View Details feature will be implemented in the next version.",

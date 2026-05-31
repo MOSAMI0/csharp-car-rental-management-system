@@ -38,11 +38,9 @@ namespace BusinessLayer
                 
                 int vehicleID = clsBooking.GetVehicleID(BookingID);
 
-                //// Update vehicle mileage
                 clsVehicle.UpdateMileage(vehicleID, Mileage);
 
 
-                //  Make vehicle available again
                 clsVehicle.SetAvailability(vehicleID, true);
 
                 return true;

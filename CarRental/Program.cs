@@ -8,9 +8,6 @@ namespace CarRental
 {
     internal static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
@@ -20,7 +17,6 @@ namespace CarRental
             if (Environment.OSVersion.Version.Major >= 6)
                 SetProcessDPIAware();
 
-            //Application.Run(new frmLogin());
             frmLogin login = new frmLogin();
 
             if (login.ShowDialog() == DialogResult.OK)

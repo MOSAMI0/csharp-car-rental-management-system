@@ -7,3 +7,12 @@ D:\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
 D:\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete
 D:\BusinessLayer\obj\Debug\BusinessLayer.dll
 D:\BusinessLayer\obj\Debug\BusinessLayer.pdb
+D:\CarRentalSolution\BusinessLayer\bin\Debug\BusinessLayer.dll
+D:\CarRentalSolution\BusinessLayer\bin\Debug\BusinessLayer.pdb
+D:\CarRentalSolution\BusinessLayer\bin\Debug\DataAccessLayer.dll
+D:\CarRentalSolution\BusinessLayer\bin\Debug\DataAccessLayer.pdb
+D:\CarRentalSolution\BusinessLayer\obj\Debug\BusinessLayer.csproj.AssemblyReference.cache
+D:\CarRentalSolution\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
+D:\CarRentalSolution\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete
+D:\CarRentalSolution\BusinessLayer\obj\Debug\BusinessLayer.dll
+D:\CarRentalSolution\BusinessLayer\obj\Debug\BusinessLayer.pdb

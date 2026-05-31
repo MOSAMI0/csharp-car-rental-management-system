@@ -39,7 +39,6 @@ namespace CarRental.Return
         {
             if (dgvReturnsList.Columns.Count == 0) return;
 
-            // Set friendly column headers
             if (dgvReturnsList.Columns.Contains("ReturnID"))
                 dgvReturnsList.Columns["ReturnID"].HeaderText = "ID";
 
@@ -92,7 +91,6 @@ namespace CarRental.Return
             if (dgvReturnsList.Columns.Contains("Notes"))
                 dgvReturnsList.Columns["Notes"].HeaderText = "Notes";
 
-            // Set column widths
             if (dgvReturnsList.Columns.Contains("ReturnID"))
                 dgvReturnsList.Columns["ReturnID"].Width = 60;
 
@@ -183,7 +181,6 @@ namespace CarRental.Return
             }
         }
 
-        // Event Handlers
         private void frmListReturns_Load(object sender, EventArgs e)
         {
             RefreshReturnsList();

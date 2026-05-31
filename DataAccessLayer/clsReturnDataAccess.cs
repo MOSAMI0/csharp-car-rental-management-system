@@ -76,7 +76,6 @@ namespace DataAccessLayer
         }
 
 
-        // In clsReturnDataAccess (DataAccessLayer)
         public static bool DeleteReturn(int returnID)
         {
             int rowsAffected = 0;

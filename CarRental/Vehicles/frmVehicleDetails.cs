@@ -26,19 +26,16 @@ namespace CarRental.Vehicles
             {
                 DataTable dt = clsVehicle.GetVehicleDetails(_VehicleID);
 
-                // Better null/empty check
                 if (dt == null || dt.Rows.Count == 0)
                 {
-                    // Important: Only show message box if NOT in design mode
                     if (!this.DesignMode)
                     {
                         MessageBox.Show("Vehicle not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         this.Close();
                     }
-                    return; // Exit immediately
+                    return;
                 }
 
-                // Now it is safe to access Rows[0]
                 DataRow row = dt.Rows[0];
 
                 lblMakeValue.Text = row["MakeName"]?.ToString() ?? "-";
@@ -67,7 +64,6 @@ namespace CarRental.Vehicles
 
         private void LoadImage(string imagePath)
         {
-            // Prevent designer crash
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
 
@@ -93,7 +89,6 @@ namespace CarRental.Vehicles
 
 
 
-        // to enable the refresh in frmListVehicles
         public event Action OnVehicleUpdated;
 
         private bool _isUpdated = false;
@@ -105,7 +100,7 @@ namespace CarRental.Vehicles
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     LoadVehicleData();
-                    _isUpdated = true; // mark as updated
+                    _isUpdated = true;
                 }
             }
         }
@@ -130,7 +125,6 @@ namespace CarRental.Vehicles
    
         private void frmVehicleDetails_Load_1(object sender, EventArgs e)
         {
-            // Add this check at the very beginning
             if (this.DesignMode)
                 return;
 

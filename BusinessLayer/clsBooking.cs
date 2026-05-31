@@ -49,16 +49,13 @@ namespace BusinessLayer
 
         public static bool Delete(int bookingID)
         {
-            // 1. Get vehicle before deleting
             int vehicleID = clsBookingDataAccess.GetVehicleIDByBooking(bookingID);
 
             if (vehicleID == -1)
                 return false;
 
-            // 2. Delete booking
             if (clsBookingDataAccess.DeleteBooking(bookingID))
             {
-                // 3. Make vehicle available again
                 clsVehicle.SetAvailability(vehicleID, true);
                 return true;
             }

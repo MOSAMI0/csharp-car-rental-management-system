@@ -75,7 +75,6 @@ namespace CarRental.Maintenance
 
                 if (isChecked)
                 {
-                    // Show confirmation dialog
                     DialogResult result = MessageBox.Show(
                         "Are you sure you want to complete this maintenance?\n\n" +
                         "This will mark the maintenance as completed and make the vehicle available again.",
@@ -100,7 +99,6 @@ namespace CarRental.Maintenance
                             MessageBox.Show("Failed to complete maintenance. Please try again.", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                            // Reload to uncheck the checkbox
                             this.BeginInvoke(new Action(() =>
                             {
                                 LoadData();
@@ -109,7 +107,6 @@ namespace CarRental.Maintenance
                     }
                     else
                     {
-                        // User cancelled - reload to uncheck the checkbox
                         _isProcessing = true;
                         this.BeginInvoke(new Action(() =>
                         {

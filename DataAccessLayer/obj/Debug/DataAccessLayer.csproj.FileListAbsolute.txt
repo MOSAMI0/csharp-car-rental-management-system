@@ -4,3 +4,9 @@ D:\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
 D:\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
 D:\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 D:\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+D:\CarRentalSolution\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+D:\CarRentalSolution\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+D:\CarRentalSolution\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.AssemblyReference.cache
+D:\CarRentalSolution\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\CarRentalSolution\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+D:\CarRentalSolution\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

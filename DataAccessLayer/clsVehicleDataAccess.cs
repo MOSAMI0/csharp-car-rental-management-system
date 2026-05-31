@@ -8,68 +8,19 @@ namespace DataAccessLayer
     public class clsVehicleDataAccess
     {
 
-        //public static bool GetVehicleByID(int ID,
-        //ref int MakeID,
-        //ref int ModelID,
-        //ref int Year,
-        //ref int FuelID,
-        //ref int CategoryID,
-        //ref string Plate,
-        //ref int Mileage,
-        //ref decimal Price,
-        //ref string ImagePath)
-
-        //{
-        //    bool isFound = false;
-
-        //    SqlConnection connection =
-        //        new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-        //    string query = "SELECT * FROM Vehicles WHERE VehicleID=@ID";
-
-        //    SqlCommand command = new SqlCommand(query, connection);
-        //    command.Parameters.AddWithValue("@ID", ID);
-
-        //    try
-        //    {
-        //        connection.Open();
-        //        SqlDataReader reader = command.ExecuteReader();
-
-        //        if (reader.Read())
-        //        {
-        //            isFound = true;
-
-        //            MakeID = (int)reader["MakeID"];
-        //            ModelID = (int)reader["ModelID"];
-        //            Year = (int)reader["Year"];
-        //            FuelID = (int)reader["FuelID"];
-        //            CategoryID = (int)reader["CategoryID"];
-
-        //            Plate = (string)reader["Plate"];
-        //            Mileage = (int)reader["Mileage"];
-        //            Price = (decimal)reader["Price"];
-
-        //            ImagePath = reader["ImagePath"] == DBNull.Value
-        //                ? ""
-        //                : (string)reader["ImagePath"];
-        //        }
-
-        //        reader.Close();
-        //    }
-        //    catch
-        //    {
-        //        isFound = false;
-        //    }
-        //    finally
-        //    {
-        //        connection.Close();
-        //    }
-
-        //    return isFound;
-        //}
 
 
-        //Core:
+
+
+
+
+
+
+
+
+
+
+
         public static bool GetVehicleByID(int ID,
     ref int MakeID,
     ref int ModelID,
@@ -100,7 +51,6 @@ namespace DataAccessLayer
                             {
                                 isFound = true;
 
-                                // Check for DBNull and column existence
                                 MakeID = reader["MakeID"] != DBNull.Value ? Convert.ToInt32(reader["MakeID"]) : 0;
                                 ModelID = reader["ModelID"] != DBNull.Value ? Convert.ToInt32(reader["ModelID"]) : 0;
                                 Year = reader["Year"] != DBNull.Value ? Convert.ToInt32(reader["Year"]) : 0;
@@ -297,56 +247,19 @@ namespace DataAccessLayer
 
 
 
-        //public static DataTable GetFuelTypesByMake(int makeID)
-        //{
-        //    DataTable dt = new DataTable();
 
-        //    SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString);
-        //    SqlCommand cmd = new SqlCommand(
-        //        "SELECT FuelTypeID, FuelTypeName FROM FuelTypes WHERE MakeID=@ID", conn);
 
-        //    cmd.Parameters.AddWithValue("@ID", makeID);
 
-        //    conn.Open();
-        //    dt.Load(cmd.ExecuteReader());
-        //    conn.Close();
 
-        //    return dt;
-        //}
 
         
-        //public static DataTable GetYearsByModel(int modelID)
-        //{
 
-        //    DataTable dt = new DataTable();
 
-        //    SqlConnection conn = null;
-        //    SqlCommand cmd = null;
 
-        //    try
-        //    {
-        //        conn = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-        //        string query = @"SELECT DISTINCT Year
-        //                 FROM Car_Details
-        //                 WHERE ModelID = @ModelID
-        //                 AND Year IS NOT NULL
-        //                 ORDER BY Year DESC";
 
-        //        cmd = new SqlCommand(query, conn);
-        //        cmd.Parameters.AddWithValue("@ModelID", modelID);
 
-        //        conn.Open();
-        //        dt.Load(cmd.ExecuteReader());
-        //    }
-        //    finally
-        //    {
-        //        if (conn != null && conn.State == ConnectionState.Open)
-        //            conn.Close();
-        //    }
 
-        //    return dt;
-        //}
 
         public static DataTable GetModels(int makeID)
         {
@@ -371,51 +284,11 @@ namespace DataAccessLayer
             return dt;
         }
 
-        //public static DataTable GetFuelTypes(int modelID, int year)
-        //{
-        //    DataTable dt = new DataTable();
 
-        //    using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
-        //    {
-        //        string query = @"SELECT DISTINCT f.FuelTypeID, f.FuelTypeName
-        //                 FROM Car_Details cd
-        //                 INNER JOIN FuelTypes f ON cd.FuelTypeID = f.FuelTypeID
-        //                 WHERE cd.ModelID = @ModelID AND cd.Year = @Year
-        //                 ORDER BY f.FuelTypeName";
 
-        //        using (SqlCommand cmd = new SqlCommand(query, conn))
-        //        {
-        //            cmd.Parameters.AddWithValue("@ModelID", modelID);
-        //            cmd.Parameters.AddWithValue("@Year", year);
-        //            conn.Open();
-        //            dt.Load(cmd.ExecuteReader());
-        //        }
-        //    }
-        //    return dt;
-        //}
 
-        //public static DataTable GetCategories(int modelID, int year)
-        //{
-        //    DataTable dt = new DataTable();
 
-        //    using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
-        //    {
-        //        string query = @"SELECT DISTINCT c.CategoryID, c.CategoryName
-        //                 FROM Car_Details cd
-        //                 INNER JOIN VehicleCategories c ON cd.CategoryID = c.CategoryID
-        //                 WHERE cd.ModelID = @ModelID AND cd.Year = @Year
-        //                 ORDER BY c.CategoryName";
 
-        //        using (SqlCommand cmd = new SqlCommand(query, conn))
-        //        {
-        //            cmd.Parameters.AddWithValue("@ModelID", modelID);
-        //            cmd.Parameters.AddWithValue("@Year", year);
-        //            conn.Open();
-        //            dt.Load(cmd.ExecuteReader());
-        //        }
-        //    }
-        //    return dt;
-        //}
 
         public static bool SetVehicleAvailability(int vehicleID, bool isAvailable)
         {
@@ -472,7 +345,6 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("Error loading vehicles: " + ex.Message);
             }
             finally
             {
@@ -529,7 +401,6 @@ namespace DataAccessLayer
             return Mileage;
         }
 
-        //Cascade:
         public static DataTable GetVehicleDetails(int vehicleID)
         {
             DataTable dt = new DataTable();

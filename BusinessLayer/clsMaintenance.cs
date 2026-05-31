@@ -16,7 +16,6 @@ namespace BusinessLayer
 
             if (id != -1)
             {
-                //  vehicle not available
                 clsVehicle.SetAvailability(VehicleID, false);
                 return true;
             }
@@ -44,7 +43,6 @@ namespace BusinessLayer
 
             if (clsMaintenanceDataAccess.CompleteMaintenance(maintenanceID))
             {
-                //  vehicle available again
                 clsVehicle.SetAvailability(vehicleID, true);
                 return true;
             }

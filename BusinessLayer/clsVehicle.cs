@@ -21,7 +21,6 @@ namespace BusinessLayer
 
         public string ImagePath { get; set; }
 
-        // Default constructor (AddNew mode)
         public clsVehicle()
         {
             VehicleID = -1;
@@ -37,7 +36,6 @@ namespace BusinessLayer
             Mode = enMode.AddNew;
         }
 
-        // Private constructor for Update mode (used by Find method)
         private clsVehicle(int vehicleID, int makeID, int modelID, int year,
                           int fuelID, int categoryID, string plate,
                           int mileage, decimal price, string imagePath)
@@ -121,15 +119,7 @@ namespace BusinessLayer
             return clsVehicleDataAccess.GetAllMakes();
         }
 
-        //public static DataTable ListCategories(int modelID, int year)
-        //{
-        //    return clsVehicleDataAccess.GetCategories(modelID, year);
-        //}
 
-        //public static DataTable GetFuelTypes(int modelID, int year)
-        //{
-        //    return clsVehicleDataAccess.GetFuelTypes(modelID, year);
-        //}
 
         public static bool SetAvailability(int vehicleID, bool isAvailable)
         {
@@ -159,10 +149,6 @@ namespace BusinessLayer
             return clsVehicleDataAccess.GetVehicleMileage(vehicleID);
         }
 
-        //public static DataTable GetYearsByModel(int modelID)
-        //{
-        //    return clsVehicleDataAccess.GetYearsByModel(modelID);
-        //}
 
         public static DataTable GetModelsByMake(int makeID)
         {

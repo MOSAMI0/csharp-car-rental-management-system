@@ -22,10 +22,8 @@ namespace CarRental.Transaction
                 _dtTransactions = clsTransaction.ListTransactions();
                 dgvTransactionsList.DataSource = _dtTransactions;
 
-                // Configure columns for professional appearance
                 ConfigureDataGridViewColumns();
 
-                // Update status bar
                 UpdateStatusBar();
             }
             catch (Exception ex)
@@ -43,7 +41,6 @@ namespace CarRental.Transaction
         {
             if (dgvTransactionsList.Columns.Count == 0) return;
 
-            // Set friendly column headers
             if (dgvTransactionsList.Columns.Contains("TransactionID"))
                 dgvTransactionsList.Columns["TransactionID"].HeaderText = "ID";
 
@@ -72,7 +69,6 @@ namespace CarRental.Transaction
                 dgvTransactionsList.Columns["PaidAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
 
-            // Set column widths
             if (dgvTransactionsList.Columns.Contains("TransactionID"))
                 dgvTransactionsList.Columns["TransactionID"].Width = 60;
 
@@ -90,10 +86,8 @@ namespace CarRental.Transaction
         {
             if (_dtTransactions != null)
             {
-                // Update record count
                 tsslRecordCount.Text = $"Total Transactions: {_dtTransactions.Rows.Count}";
 
-                // Calculate total amount sum
                 decimal totalAmount = 0;
                 if (_dtTransactions.Columns.Contains("PaidAmount"))
                 {
@@ -107,12 +101,10 @@ namespace CarRental.Transaction
                 }
                 tsslTotalAmount.Text = $"Total Amount: {totalAmount:C2}";
 
-                // Update last updated timestamp
                 tsslLastUpdated.Text = $"Last Updated: {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
             }
         }
 
-        // Event Handlers
         private void frmListTransactions_Load(object sender, EventArgs e)
         {
             RefreshTransactionsList();

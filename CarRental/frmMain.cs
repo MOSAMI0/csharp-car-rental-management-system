@@ -19,7 +19,6 @@ namespace CarRental
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            // Display user information
             if (frmLogin.CurrentUser != null)
             {
                 lblUserValue.Text = frmLogin.CurrentUser.Username;
@@ -33,7 +32,6 @@ namespace CarRental
                 tsslUserStatus.Text = "Guest access";
             }
 
-            // Update date/time
             UpdateDateTime();
         }
 
@@ -125,23 +123,20 @@ namespace CarRental
 
         private void pnlHeader_Paint(object sender, PaintEventArgs e)
         {
-            // Draw matching premium dark blue-slate gradient for header
             using (System.Drawing.Drawing2D.LinearGradientBrush brush = new System.Drawing.Drawing2D.LinearGradientBrush(
                 pnlHeader.ClientRectangle,
-                System.Drawing.Color.FromArgb(17, 24, 39),   // slate-900
-                System.Drawing.Color.FromArgb(30, 41, 59),   // slate-800
-                0F))                                         // horizontal gradient
+                System.Drawing.Color.FromArgb(17, 24, 39),
+                System.Drawing.Color.FromArgb(30, 41, 59),
+                0F))
             {
                 e.Graphics.FillRectangle(brush, pnlHeader.ClientRectangle);
             }
 
-            // Draw clean horizontal neon accent separator line at the bottom of the header
-            using (System.Drawing.SolidBrush lineBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(59, 130, 246))) // Blue accent
+            using (System.Drawing.SolidBrush lineBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(59, 130, 246)))
             {
                 e.Graphics.FillRectangle(lineBrush, 0, pnlHeader.Height - 4, pnlHeader.Width, 4);
             }
 
-            // Subtle modern translucent vectors
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             using (System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Color.FromArgb(6, 255, 255, 255), 1.5F))
             {
@@ -153,7 +148,7 @@ namespace CarRental
         {
             Button btn = (Button)sender;
 
-            btn.BackColor = Color.FromArgb(0, 102, 204); // Hover color
+            btn.BackColor = Color.FromArgb(0, 102, 204);
             btn.ForeColor = Color.White;
         }
 
@@ -161,7 +156,7 @@ namespace CarRental
         {
             Button btn = (Button)sender;
 
-            btn.BackColor = Color.White; // Original color
+            btn.BackColor = Color.White;
             btn.ForeColor = Color.FromArgb(20, 33, 61);
         }
 

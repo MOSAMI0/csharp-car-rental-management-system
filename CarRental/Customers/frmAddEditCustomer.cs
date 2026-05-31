@@ -67,7 +67,6 @@ namespace CarRental
 
         private bool ValidateForm()
         {
-            // Validate Customer Name
             if (string.IsNullOrWhiteSpace(txtCustomerName.Text))
             {
                 MessageBox.Show("Please enter the customer's full name.",
@@ -76,7 +75,6 @@ namespace CarRental
                 return false;
             }
 
-            // Validate Name length
             if (txtCustomerName.Text.Trim().Length < 2)
             {
                 MessageBox.Show("Customer name must be at least 2 characters long.",
@@ -86,7 +84,6 @@ namespace CarRental
                 return false;
             }
 
-            // Validate Contact Information
             if (string.IsNullOrWhiteSpace(txtContactInfo.Text))
             {
                 MessageBox.Show("Please enter the customer's contact information.",
@@ -95,7 +92,6 @@ namespace CarRental
                 return false;
             }
 
-            // Validate Driver License Number
             if (string.IsNullOrWhiteSpace(txtLicenseNumber.Text))
             {
                 MessageBox.Show("Please enter the driver's license number.",
@@ -104,7 +100,6 @@ namespace CarRental
                 return false;
             }
 
-            // Validate License number format (basic check)
             if (txtLicenseNumber.Text.Trim().Length < 5)
             {
                 MessageBox.Show("Driver's license number must be at least 5 characters long.",

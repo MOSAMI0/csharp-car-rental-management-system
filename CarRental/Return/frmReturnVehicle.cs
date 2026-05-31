@@ -16,7 +16,7 @@ namespace CarRental.Return
         private decimal _pricePerDay;
         private decimal _bookedTotal;
         private int _vehicleID;
-        private int _initialVehicleMileage; // Store initial mileage when booking was made
+        private int _initialVehicleMileage;
 
         public frmReturnVehicle()
         {
@@ -45,7 +45,6 @@ namespace CarRental.Return
         {
             try
             {
-                // Detach event to prevent LoadBookingDetails() firing before binding is ready
                 cboBooking.SelectedIndexChanged -= cboBooking_SelectedIndexChanged;
 
                 DataTable dtBookings = clsBooking.GetActiveBookings();
@@ -66,7 +65,6 @@ namespace CarRental.Return
             }
             finally
             {
-                // Always re-attach, even if an exception occurred
                 cboBooking.SelectedIndexChanged += cboBooking_SelectedIndexChanged;
             }
         }
@@ -97,7 +95,6 @@ namespace CarRental.Return
 
         private void LoadBookingDetails()
         {
-            // Guard: no selection made yet
             if (cboBooking.SelectedItem == null || cboBooking.SelectedIndex == -1)
             {
                 ClearBookingDetails();
@@ -117,7 +114,6 @@ namespace CarRental.Return
 
                 _selectedBookingID = Convert.ToInt32(selectedRow["BookingID"]);
 
-                // Load full booking row from DB
                 DataTable dt = clsBooking.GetBookingByID(_selectedBookingID);
 
                 if (dt == null || dt.Rows.Count == 0)
@@ -130,7 +126,6 @@ namespace CarRental.Return
 
                 DataRow row = dt.Rows[0];
 
-                // Read booking fields
                 _bookedStartDate = Convert.ToDateTime(row["StartDate"]);
                 _bookedEndDate = Convert.ToDateTime(row["EndDate"]);
                 _bookedDays = Convert.ToInt32(row["Days"]);
@@ -138,13 +133,11 @@ namespace CarRental.Return
                 _bookedTotal = Convert.ToDecimal(row["Total"]);
                 _vehicleID = Convert.ToInt32(row["VehicleID"]);
 
-                // Get the vehicle's mileage (when vehicle was rented)
                 _initialVehicleMileage = Convert.ToInt32(row["StartMileage"]);
 
                 string customerName = row["CustomerName"].ToString();
                 string vehicleName = row["VehicleName"].ToString();
 
-                // Populate booking detail labels
                 lblCustomerValue.Text = customerName;
                 lblVehicleValue.Text = vehicleName;
                 lblBookingPeriodValue.Text = $"{_bookedStartDate:yyyy-MM-dd} to {_bookedEndDate:yyyy-MM-dd}";
@@ -152,16 +145,12 @@ namespace CarRental.Return
                 lblPricePerDayValue.Text = _pricePerDay.ToString("C2");
                 lblOriginalTotalValue.Text = _bookedTotal.ToString("C2");
 
-                //// Default return date to the booked end date
-                //dtpReturnDate.Value = _bookedEndDate;
-                //dtpReturnDate.MinDate = _bookedStartDate;
 
 
-                dtpReturnDate.MinDate = _bookedStartDate; // or _bookedEndDate
+                dtpReturnDate.MinDate = _bookedStartDate;
                 dtpReturnDate.MaxDate = DateTime.Today.AddYears(1);
                 dtpReturnDate.Value = _bookedEndDate;
 
-                // Set focus to mileage field
                 txtCurrentMileage.Focus();
 
                 tsslBookingStatus.Text = $"Booking #{_selectedBookingID} selected - Current mileage: {_initialVehicleMileage:N0} km";
@@ -193,14 +182,12 @@ namespace CarRental.Return
 
             if (int.TryParse(txtCurrentMileage.Text, out int currentMileage))
             {
-                // Calculate consumed kilometers based on vehicle's initial mileage
                 int consumed = currentMileage - _initialVehicleMileage;
                 if (consumed < 0) consumed = 0;
                 txtConsumedKilometers.Text = "";
                 txtConsumedKilometers.Text = consumed.ToString();
                 txtConsumedKilometers.Refresh();
 
-                // Update status with mileage info
                 tsslBookingStatus.Text = $"Booking #{_selectedBookingID} - Mileage: {currentMileage:N0} km (Consumed: {consumed:N0} km)";
             }
             else
@@ -220,24 +207,20 @@ namespace CarRental.Return
 
             DateTime returnDate = dtpReturnDate.Value.Date;
 
-            // Calculate actual days
             int actualDays = (returnDate - _bookedStartDate.Date).Days;
             if (actualDays <= 0) actualDays = 1;
 
             lblActualDaysValue.Text = actualDays.ToString();
 
-            // Get extra charges
             decimal extraCharges = 0;
             if (!string.IsNullOrWhiteSpace(txtExtraCharges.Text))
             {
                 decimal.TryParse(txtExtraCharges.Text, out extraCharges);
             }
 
-            // Calculate actual total
             decimal actualTotal = (actualDays * _pricePerDay) + extraCharges;
             lblTotalDueValue.Text = actualTotal.ToString("C2");
 
-            // Show surplus/difference message
             decimal difference = actualTotal - _bookedTotal;
 
             if (difference > 0)
@@ -262,7 +245,6 @@ namespace CarRental.Return
 
         private bool ValidateReturnForm()
         {
-            // Validate booking selection
             if (cboBooking.SelectedValue == null || cboBooking.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a booking to process the return.",
@@ -271,7 +253,6 @@ namespace CarRental.Return
                 return false;
             }
 
-            // Validate mileage
             if (string.IsNullOrWhiteSpace(txtCurrentMileage.Text))
             {
                 MessageBox.Show("Please enter the current vehicle mileage.",
@@ -289,7 +270,6 @@ namespace CarRental.Return
                 return false;
             }
 
-            // Validate that current mileage is not less than initial mileage
             if (mileage < _initialVehicleMileage)
             {
                 MessageBox.Show($"Current mileage ({mileage:N0} km) cannot be less than the initial mileage ({_initialVehicleMileage:N0} km) when the vehicle was rented.",
@@ -299,7 +279,6 @@ namespace CarRental.Return
                 return false;
             }
 
-            // Validate consumed kilometers
             if (!int.TryParse(txtConsumedKilometers.Text, out int consumed) || consumed < 0)
             {
                 MessageBox.Show("Unable to calculate consumed kilometers. Please check the mileage value.",
@@ -308,7 +287,6 @@ namespace CarRental.Return
                 return false;
             }
 
-            // Validate return date
             if (dtpReturnDate.Value.Date < _bookedStartDate.Date)
             {
                 MessageBox.Show("Return date cannot be before the booking start date.",
@@ -317,7 +295,6 @@ namespace CarRental.Return
                 return false;
             }
 
-            // Validate extra charges
             if (!string.IsNullOrWhiteSpace(txtExtraCharges.Text))
             {
                 if (!decimal.TryParse(txtExtraCharges.Text, out decimal extra) || extra < 0)
@@ -340,7 +317,6 @@ namespace CarRental.Return
 
             try
             {
-                // Create return object
                 clsReturn ret = new clsReturn();
                 ret.BookingID = _selectedBookingID;
                 ret.ReturnDate = dtpReturnDate.Value;
@@ -350,11 +326,9 @@ namespace CarRental.Return
                 ret.Notes = txtReturnNotes.Text.Trim();
                 ret.ExtraCharges = string.IsNullOrWhiteSpace(txtExtraCharges.Text) ? 0 : Convert.ToDecimal(txtExtraCharges.Text);
 
-                // Parse total from label (remove currency formatting)
                 string totalText = lblTotalDueValue.Text.Replace("$", "").Replace(",", "").Trim();
                 ret.Total = Convert.ToDecimal(totalText);
 
-                // Step 1 — Save return, which gives us a ReturnID via SCOPE_IDENTITY
                 if (!ret.Save())
                 {
                     MessageBox.Show("An error occurred while saving the return record. Please try again.",
@@ -362,7 +336,6 @@ namespace CarRental.Return
                     return;
                 }
 
-                // Guard: make sure we actually got a valid ReturnID back
                 if (ret.ReturnID <= 0)
                 {
                     MessageBox.Show("Return was saved but the Return ID could not be retrieved.\n\n" +
@@ -371,20 +344,17 @@ namespace CarRental.Return
                     return;
                 }
 
-                // Step 2 — Open transaction form
                 if (!clsTransaction.HasTransaction(ret.ReturnID))
                 {
                     frmTransaction frm = new frmTransaction(ret.BookingID, ret.ReturnID, ret.Total);
                     DialogResult result = frm.ShowDialog();
 
-                    // Step 3 — Transaction was NOT completed → roll back the return
                     if (result != DialogResult.OK)
                     {
                         bool deleted = clsReturn.Delete(ret.ReturnID);
 
                         if (!deleted)
                         {
-                            // Fallback warning so the user knows there's a dirty record
                             MessageBox.Show(
                                 $"Warning: Unable to remove return record #{ret.ReturnID}.\n\n" +
                                 "Please delete it manually from the database or contact system administrator.",
@@ -402,14 +372,12 @@ namespace CarRental.Return
                                 MessageBoxIcon.Warning);
                         }
 
-                        return; // Stay on the form — user can try again
+                        return;
                     }
                 }
 
-                // Step 4 — Update vehicle availability
                 clsVehicle.SetAvailability(_vehicleID, true);
 
-                // Step 5 — Both saved successfully
                 MessageBox.Show("Vehicle return and payment have been completed successfully!",
                     "Return Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -423,7 +391,6 @@ namespace CarRental.Return
             }
         }
 
-        // Event Handlers
         private void btnCompleteReturn_Click(object sender, EventArgs e)
         {
             ProcessReturn();
@@ -445,10 +412,6 @@ namespace CarRental.Return
             CalculateReturnSummary();
         }
 
-        //private void txtCurrentMileage_TextChanged(object sender, EventArgs e)
-        //{
-        //    CalculateConsumedKilometers();
-        //}
 
         private void txtExtraCharges_TextChanged(object sender, EventArgs e)
         {

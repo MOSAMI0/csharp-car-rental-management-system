@@ -34,10 +34,8 @@ namespace CarRental
                 _dtCustomers = clsCustomer.ListCustomers();
                 dgvCustomersList.DataSource = _dtCustomers;
 
-                // Configure columns for professional appearance
                 ConfigureDataGridViewColumns();
 
-                // Update status bar
                 UpdateStatusBar();
             }
             catch (Exception ex)
@@ -55,11 +53,9 @@ namespace CarRental
         {
             if (dgvCustomersList.Columns.Count == 0) return;
 
-            // Hide unnecessary columns
             if (dgvCustomersList.Columns.Contains("ImagePath"))
                 dgvCustomersList.Columns["ImagePath"].Visible = false;
 
-            // Set friendly column headers using actual database column names
             if (dgvCustomersList.Columns.Contains("CustomerID"))
                 dgvCustomersList.Columns["CustomerID"].HeaderText = "ID";
 
@@ -72,7 +68,6 @@ namespace CarRental
             if (dgvCustomersList.Columns.Contains("DriverLicenseNumber"))
                 dgvCustomersList.Columns["DriverLicenseNumber"].HeaderText = "Driver License";
 
-            // Set column widths
             if (dgvCustomersList.Columns.Contains("CustomerID"))
                 dgvCustomersList.Columns["CustomerID"].Width = 80;
 
@@ -104,13 +99,11 @@ namespace CarRental
 
             if (string.IsNullOrEmpty(searchValue))
             {
-                // Clear search - show all records
                 dgvCustomersList.DataSource = _dtCustomers;
                 tsslRecordCount.Text = $"Total Records: {_dtCustomers.Rows.Count}";
                 return;
             }
 
-            // Map display field to actual column name (C# 7.3 compatible)
             string columnName;
             switch (searchField)
             {
@@ -131,7 +124,6 @@ namespace CarRental
                     break;
             }
 
-            // Check if column exists
             if (!_dtCustomers.Columns.Contains(columnName))
             {
                 MessageBox.Show($"The column '{columnName}' was not found in the data source.",
@@ -139,7 +131,6 @@ namespace CarRental
                 return;
             }
 
-            // Perform case-insensitive search
             DataTable dtFiltered = _dtCustomers.Clone();
 
             foreach (DataRow row in _dtCustomers.Rows)
@@ -166,13 +157,11 @@ namespace CarRental
         {
             try
             {
-                // Try to get by column name first
                 if (dgvCustomersList.CurrentRow.Cells["CustomerID"] != null &&
                     dgvCustomersList.CurrentRow.Cells["CustomerID"].Value != null)
                 {
                     return Convert.ToInt32(dgvCustomersList.CurrentRow.Cells["CustomerID"].Value);
                 }
-                // Fallback to column index 0
                 else if (dgvCustomersList.CurrentRow.Cells[0].Value != null)
                 {
                     return Convert.ToInt32(dgvCustomersList.CurrentRow.Cells[0].Value);
@@ -203,7 +192,6 @@ namespace CarRental
 
         private void EditSelectedCustomer()
         {
-            // Check if a row is selected
             if (dgvCustomersList.CurrentRow == null)
             {
                 MessageBox.Show("Please select a customer to edit.", "No Selection",
@@ -211,7 +199,6 @@ namespace CarRental
                 return;
             }
 
-            // Get the Customer ID
             int customerID = GetSelectedCustomerID();
             if (customerID == -1)
             {
@@ -231,7 +218,6 @@ namespace CarRental
 
         private void DeleteSelectedCustomer()
         {
-            // Check if a row is selected
             if (dgvCustomersList.CurrentRow == null)
             {
                 MessageBox.Show("Please select a customer to delete.", "No Selection",
@@ -239,7 +225,6 @@ namespace CarRental
                 return;
             }
 
-            // Get the Customer ID
             int customerID = GetSelectedCustomerID();
             if (customerID == -1)
             {
@@ -248,10 +233,8 @@ namespace CarRental
                 return;
             }
 
-            // Get customer info for confirmation message
             string customerInfo = GetCustomerDisplayInfo();
 
-            // Confirm deletion
             DialogResult result = MessageBox.Show(
                 $"Are you sure you want to delete the following customer?\n\n{customerInfo}\n\nThis action cannot be undone.",
                 "Confirm Deletion",
@@ -325,7 +308,6 @@ namespace CarRental
 
         private void dgvCustomersList_MouseClick(object sender, MouseEventArgs e)
         {
-            // Show context menu on right-click
             if (e.Button == MouseButtons.Right)
             {
                 var hitTest = dgvCustomersList.HitTest(e.X, e.Y);
@@ -350,11 +332,6 @@ namespace CarRental
 
         private void txtSearchValue_TextChanged(object sender, EventArgs e)
         {
-            // Optional: Real-time search (uncomment if desired)
-            // if (!_isLoading)
-            // {
-            //     PerformSearch();
-            // }
         }
 
         private void txtSearchValue_KeyPress(object sender, KeyPressEventArgs e)

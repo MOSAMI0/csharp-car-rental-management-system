@@ -20,7 +20,6 @@ namespace CarRental.Maintenance
                 DataTable dtHistory = clsMaintenance.ListMaintenanceHistory();
                 dgvMaintenanceHistory.DataSource = dtHistory;
 
-                // Configure columns for professional appearance
                 ConfigureDataGridViewColumns();
                 UpdateStatusBar();
             }
@@ -39,7 +38,6 @@ namespace CarRental.Maintenance
         {
             if (dgvMaintenanceHistory.Columns.Count == 0) return;
 
-            // Set friendly column headers
             if (dgvMaintenanceHistory.Columns.Contains("MaintenanceID"))
                 dgvMaintenanceHistory.Columns["MaintenanceID"].HeaderText = "ID";
 
@@ -71,7 +69,6 @@ namespace CarRental.Maintenance
                 dgvMaintenanceHistory.Columns["CompletedDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
             }
 
-            // Set column widths
             if (dgvMaintenanceHistory.Columns.Contains("MaintenanceID"))
                 dgvMaintenanceHistory.Columns["MaintenanceID"].Width = 60;
 

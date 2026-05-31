@@ -21,23 +21,18 @@ namespace CarRental.Transaction
 
         private void frmTransaction_Load(object sender, EventArgs e)
         {
-            // Show amount due with $ prefix to match designer label style
             lblActual.Text = "$" + _ActualAmount.ToString("0.00");
 
-            // Payment methods
             cbPaymentMethod.Items.Clear();
             cbPaymentMethod.Items.Add("Cash");
             cbPaymentMethod.Items.Add("Card");
             cbPaymentMethod.Items.Add("Online");
             cbPaymentMethod.SelectedIndex = 0;
 
-            // Default paid = actual (best UX — customer pays exact amount)
             txtPaid.Text = _ActualAmount.ToString("0.00");
 
-            // Run once to populate remaining/refund labels on load
             Calculate();
 
-            // Auto-recalculate on every keystroke
             txtPaid.TextChanged += (s, ev) => Calculate();
         }
 
@@ -48,16 +43,13 @@ namespace CarRental.Transaction
             decimal remaining = _ActualAmount > paid ? _ActualAmount - paid : 0;
             decimal refund = paid > _ActualAmount ? paid - _ActualAmount : 0;
 
-            // Update labels with $ prefix and color feedback
             lblRemaining.Text = "$" + remaining.ToString("0.00");
             lblRefund.Text = "$" + refund.ToString("0.00");
 
-            // Visual feedback: highlight remaining in red when still owed
             lblRemaining.ForeColor = remaining > 0
                 ? System.Drawing.Color.OrangeRed
                 : System.Drawing.Color.SeaGreen;
 
-            // Highlight refund in green only when there's a positive refund
             lblRefund.ForeColor = refund > 0
                 ? System.Drawing.Color.SeaGreen
                 : System.Drawing.Color.DimGray;
@@ -69,8 +61,6 @@ namespace CarRental.Transaction
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Closing without saving → DialogResult stays Cancel (default)
-            // frmReturnVehicle checks this and rolls back the return record
             DialogResult confirm = MessageBox.Show(
                 "Are you sure you want to cancel?\n" +
                 "The return record will be removed if you cancel now.",
@@ -102,7 +92,6 @@ namespace CarRental.Transaction
                 return;
             }
 
-            // Warn if customer is paying less than the amount due
             decimal remaining = _ActualAmount - paid;
             if (remaining > 0)
             {
@@ -134,7 +123,6 @@ namespace CarRental.Transaction
                     MessageBoxIcon.Information);
 
 
-                // this is what keeps the return record in the list
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

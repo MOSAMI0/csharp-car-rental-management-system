@@ -38,10 +38,8 @@ namespace CarRental
                 _dtVehicles = clsVehicle.ListVehicles();
                 dgvVehiclesList.DataSource = _dtVehicles;
 
-                // Configure columns for professional appearance
                 ConfigureDataGridViewColumns();
 
-                // Update status bar
                 UpdateStatusBar();
             }
             catch (Exception ex)
@@ -59,7 +57,6 @@ namespace CarRental
         {
             if (dgvVehiclesList.Columns.Count == 0) return;
 
-            // Hide unnecessary columns
             if (dgvVehiclesList.Columns.Contains("ImagePath"))
                 dgvVehiclesList.Columns["ImagePath"].Visible = false;
 
@@ -75,7 +72,6 @@ namespace CarRental
             if (dgvVehiclesList.Columns.Contains("CategoryID"))
                 dgvVehiclesList.Columns["CategoryID"].Visible = false;
 
-            // Set friendly column headers
             if (dgvVehiclesList.Columns.Contains("VehicleID"))
                 dgvVehiclesList.Columns["VehicleID"].HeaderText = "ID";
 
@@ -103,21 +99,18 @@ namespace CarRental
                 dgvVehiclesList.Columns["IsAvailableForRent"].Width = 80;
             }
 
-            // Format price column as currency
             if (dgvVehiclesList.Columns.Contains("Price"))
             {
                 dgvVehiclesList.Columns["Price"].DefaultCellStyle.Format = "C2";
                 dgvVehiclesList.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
 
-            // Format mileage with thousands separator
             if (dgvVehiclesList.Columns.Contains("Mileage"))
             {
                 dgvVehiclesList.Columns["Mileage"].DefaultCellStyle.Format = "N0";
                 dgvVehiclesList.Columns["Mileage"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
 
-            // Set column widths
             if (dgvVehiclesList.Columns.Contains("VehicleID"))
                 dgvVehiclesList.Columns["VehicleID"].Width = 60;
 
@@ -149,7 +142,6 @@ namespace CarRental
 
             if (string.IsNullOrEmpty(searchValue))
             {
-                // Clear search - show all records
                 dgvVehiclesList.DataSource = _dtVehicles;
                 tsslRecordCount.Text = $"Total Records: {_dtVehicles.Rows.Count}";
                 return;
@@ -181,7 +173,6 @@ namespace CarRental
                     break;
             }
 
-            // Check if column exists
             if (!_dtVehicles.Columns.Contains(columnName))
             {
                 MessageBox.Show($"The column '{columnName}' was not found in the data source.",
@@ -189,7 +180,6 @@ namespace CarRental
                 return;
             }
 
-            // Perform case-insensitive search
             DataTable dtFiltered = _dtVehicles.Clone();
 
             foreach (DataRow row in _dtVehicles.Rows)
@@ -258,7 +248,6 @@ namespace CarRental
 
         private void EditSelectedVehicle()
         {
-            // Check if a row is selected
             if (dgvVehiclesList.CurrentRow == null)
             {
                 MessageBox.Show("Please select a vehicle to edit.", "No Selection",
@@ -266,7 +255,6 @@ namespace CarRental
                 return;
             }
 
-            // Get the Vehicle ID
             int vehicleID = GetSelectedVehicleID();
             if (vehicleID == -1)
             {
@@ -286,7 +274,6 @@ namespace CarRental
 
         private void DeleteSelectedVehicle()
         {
-            // Check if a row is selected
             if (dgvVehiclesList.CurrentRow == null)
             {
                 MessageBox.Show("Please select a vehicle to delete.", "No Selection",
@@ -294,7 +281,6 @@ namespace CarRental
                 return;
             }
 
-            // Get the Vehicle ID
             int vehicleID = GetSelectedVehicleID();
             if (vehicleID == -1)
             {
@@ -303,10 +289,8 @@ namespace CarRental
                 return;
             }
 
-            // Get vehicle info for confirmation message
             string vehicleInfo = GetVehicleDisplayInfo();
 
-            // Confirm deletion
             DialogResult result = MessageBox.Show(
                 $"Are you sure you want to delete the following vehicle?\n\n{vehicleInfo}\n\nThis action cannot be undone.",
                 "Confirm Deletion",
@@ -339,7 +323,6 @@ namespace CarRental
 
         private void ViewVehicleDetails()
         {
-            // Check if a row is selected
             if (dgvVehiclesList.CurrentRow == null)
             {
                 MessageBox.Show("Please select a vehicle to view details.", "No Selection",
@@ -347,7 +330,6 @@ namespace CarRental
                 return;
             }
 
-            // Get the Vehicle ID
             int vehicleID = GetSelectedVehicleID();
             if (vehicleID == -1)
             {
@@ -358,7 +340,6 @@ namespace CarRental
 
             frmVehicleDetails frm = new frmVehicleDetails(vehicleID);
 
-            // Subscribe to the update event
             frm.OnVehicleUpdated += () =>
             {
                 RefreshVehiclesList();
@@ -371,13 +352,11 @@ namespace CarRental
         {
             try
             {
-                // Try to get by column name first
                 if (dgvVehiclesList.CurrentRow.Cells["VehicleID"] != null &&
                     dgvVehiclesList.CurrentRow.Cells["VehicleID"].Value != null)
                 {
                     return Convert.ToInt32(dgvVehiclesList.CurrentRow.Cells["VehicleID"].Value);
                 }
-                // Fallback to column index 0
                 else if (dgvVehiclesList.CurrentRow.Cells[0].Value != null)
                 {
                     return Convert.ToInt32(dgvVehiclesList.CurrentRow.Cells[0].Value);
@@ -417,7 +396,6 @@ namespace CarRental
 
         private void dgvVehiclesList_MouseClick(object sender, MouseEventArgs e)
         {
-            // Show context menu on right-click
             if (e.Button == MouseButtons.Right)
             {
                 var hitTest = dgvVehiclesList.HitTest(e.X, e.Y);
@@ -442,11 +420,6 @@ namespace CarRental
 
         private void txtSearchValue_TextChanged(object sender, EventArgs e)
         {
-            // Optional: Real-time search (uncomment if desired)
-            // if (!_isLoading)
-            // {
-            //     PerformSearch();
-            // }
         }
 
         private void txtSearchValue_KeyPress(object sender, KeyPressEventArgs e)

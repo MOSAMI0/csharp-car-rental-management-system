@@ -34,10 +34,8 @@ namespace CarRental.Booking
 
         private void SetDefaultDates()
         {
-            // Set default start date to today
             dtpStartDate.Value = DateTime.Now.Date;
 
-            // Set default end date to tomorrow (minimum 1 day rental)
             dtpEndDate.Value = DateTime.Now.Date.AddDays(1);
         }
 
@@ -66,7 +64,7 @@ namespace CarRental.Booking
             {
                 _dtVehicles = clsVehicle.GetAvailableVehicles();
                 cboVehicle.DataSource = _dtVehicles;
-                cboVehicle.DisplayMember = "VehicleName"; // PlateNumber or Make + Model
+                cboVehicle.DisplayMember = "VehicleName";
                 cboVehicle.ValueMember = "VehicleID";
 
                 if (_dtVehicles.Rows.Count > 0)
@@ -83,7 +81,6 @@ namespace CarRental.Booking
         {
             try
             {
-                // Validate dates
                 if (dtpEndDate.Value < dtpStartDate.Value)
                 {
                     lblRentalDaysValue.Text = "0";
@@ -91,18 +88,15 @@ namespace CarRental.Booking
                     return;
                 }
 
-                // Calculate rental days
                 int rentalDays = (dtpEndDate.Value - dtpStartDate.Value).Days;
-                if (rentalDays <= 0) rentalDays = 1; // Minimum 1 day
+                if (rentalDays <= 0) rentalDays = 1;
 
                 lblRentalDaysValue.Text = rentalDays.ToString();
 
-                // Get vehicle price per day
                 decimal pricePerDay = GetVehiclePricePerDay();
                 decimal totalCost = rentalDays * pricePerDay;
 
-                // Update total cost display
-                lblTotalCostValue.Text = totalCost.ToString("C2"); // Formats as currency
+                lblTotalCostValue.Text = totalCost.ToString("C2");
             }
             catch (Exception ex)
             {
@@ -114,7 +108,6 @@ namespace CarRental.Booking
 
         private decimal GetVehiclePricePerDay()
         {
-            // Check if vehicle is selected
             if (cboVehicle.SelectedValue == null || cboVehicle.SelectedIndex == -1)
                 return 0;
 
@@ -133,7 +126,6 @@ namespace CarRental.Booking
 
         private bool ValidateForm()
         {
-            // Validate Customer selection
             if (cboCustomer.SelectedValue == null || cboCustomer.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a customer for this booking.",
@@ -142,7 +134,6 @@ namespace CarRental.Booking
                 return false;
             }
 
-            // Validate Vehicle selection
             if (cboVehicle.SelectedValue == null || cboVehicle.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a vehicle for this booking.",
@@ -151,7 +142,6 @@ namespace CarRental.Booking
                 return false;
             }
 
-            // Validate dates
             if (dtpEndDate.Value < dtpStartDate.Value)
             {
                 MessageBox.Show("The end date must be after the start date.",
@@ -160,7 +150,6 @@ namespace CarRental.Booking
                 return false;
             }
 
-            // Validate start date is not in the past
             if (dtpStartDate.Value.Date < DateTime.Now.Date)
             {
                 MessageBox.Show("The start date cannot be in the past.",
@@ -169,7 +158,6 @@ namespace CarRental.Booking
                 return false;
             }
 
-            // Validate Pickup Location
             if (string.IsNullOrWhiteSpace(txtPickupLocation.Text))
             {
                 MessageBox.Show("Please enter the pickup location.",
@@ -178,7 +166,6 @@ namespace CarRental.Booking
                 return false;
             }
 
-            // Validate Dropoff Location
             if (string.IsNullOrWhiteSpace(txtDropoffLocation.Text))
             {
                 MessageBox.Show("Please enter the dropoff location.",
@@ -187,7 +174,6 @@ namespace CarRental.Booking
                 return false;
             }
 
-            // Validate rental days are positive
             int rentalDays = (dtpEndDate.Value - dtpStartDate.Value).Days;
             if (rentalDays <= 0)
             {
@@ -209,7 +195,6 @@ namespace CarRental.Booking
             {
                 clsBooking booking = new clsBooking();
 
-                // Set booking properties
                 booking.CustomerID = Convert.ToInt32(cboCustomer.SelectedValue);
                 booking.VehicleID = Convert.ToInt32(cboVehicle.SelectedValue);
                 booking.StartMileage = clsVehicle.GetMileage(booking.VehicleID);
@@ -222,9 +207,7 @@ namespace CarRental.Booking
                 booking.PricePerDay = GetVehiclePricePerDay();
                 booking.Total = Convert.ToDecimal(lblTotalCostValue.Text.Replace("$", "").Replace(",", ""));
                 booking.Notes = txtNotes.Text.Trim();
-                //booking. = "Active"; // Or appropriate default status
 
-                // Save to database
                 if (booking.Save())
                 {
                     MessageBox.Show("Booking has been created successfully!",
@@ -246,7 +229,6 @@ namespace CarRental.Booking
             }
         }
 
-        // Event Handlers
         private void btnSaveBooking_Click(object sender, EventArgs e)
         {
             CreateBooking();

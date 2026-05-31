@@ -97,7 +97,6 @@ namespace DataAccessLayer
                 conn = new SqlConnection(clsDataAccessSettings.ConnectionString);
                 conn.Open();
 
-                //  MOVE TO HISTORY
                 string insertQuery = @"
                 INSERT INTO VehicleMaintenanceHistory
                 (MaintenanceID, VehicleID, Description, Cost, MaintenanceDate)
@@ -109,7 +108,6 @@ namespace DataAccessLayer
                 cmd.Parameters.AddWithValue("@ID", maintenanceID);
                 cmd.ExecuteNonQuery();
 
-                //  DELETE
                 string deleteQuery = "DELETE FROM VehicleMaintenance WHERE MaintenanceID = @ID";
 
                 cmd = new SqlCommand(deleteQuery, conn);
@@ -157,72 +155,26 @@ namespace DataAccessLayer
         }
 
 
-        //public static bool UpdateStatus(int maintenanceID, bool isCompleted)
-        //{
-        //    SqlConnection conn = null;
-        //    SqlCommand cmd = null;
 
-        //    try
-        //    {
-        //        conn = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-        //        string query = @"UPDATE VehicleMaintenance
-        //                 SET IsCompleted = @Status
-        //                 WHERE MaintenanceID = @ID";
 
-        //        cmd = new SqlCommand(query, conn);
 
-        //        cmd.Parameters.AddWithValue("@ID", maintenanceID);
-        //        cmd.Parameters.AddWithValue("@Status", isCompleted);
 
-        //        conn.Open();
 
-        //        return cmd.ExecuteNonQuery() > 0;
-        //    }
-        //    finally
-        //    {
-        //        if (conn != null && conn.State == System.Data.ConnectionState.Open)
-        //            conn.Close();
-        //    }
-        //}
 
         
 
-        //public static bool HasPendingMaintenance(int vehicleID)
-        //{
-        //    SqlConnection conn = null;
-        //    SqlCommand cmd = null;
-
-        //    try
-        //    {
-        //        conn = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-        //        string query = @"SELECT COUNT(*) 
-        //                 FROM VehicleMaintenance
-        //                 WHERE VehicleID = @ID
-        //                 AND (IsCompleted = 0 OR IsCompleted IS NULL)";
-
-        //        cmd = new SqlCommand(query, conn);
-        //        cmd.Parameters.AddWithValue("@ID", vehicleID);
-
-        //        conn.Open();
-
-        //        int count = (int)cmd.ExecuteScalar();
-
-        //        return count > 0;
-        //    }
-        //    finally
-        //    {
-        //        if (conn != null && conn.State == System.Data.ConnectionState.Open)
-        //            conn.Close();
-        //    }
-        //}
 
 
 
 
 
-        //for history 
+
+
+
+
+
+
 
         public static DataTable ListMaintenanceHistory()
         {
